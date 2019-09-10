@@ -24,6 +24,10 @@
     "content": {
       "default": "",
       "type": "text"
+    },
+    "categories": {
+      "collection": "categories",
+      "via": "posts"
     }
   }
 }

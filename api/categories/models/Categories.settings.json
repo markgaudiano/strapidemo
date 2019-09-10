@@ -1,0 +1,25 @@
+{
+  "connection": "default",
+  "collectionName": "categories",
+  "info": {
+    "name": "categories",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "comment": ""
+  },
+  "attributes": {
+    "posts": {
+      "collection": "posts",
+      "via": "categories",
+      "dominant": true
+    },
+    "category1": {
+      "type": "string",
+      "unique": true,
+      "required": true
+    }
+  }
+}
