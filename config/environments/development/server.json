@@ -1,6 +1,6 @@
 {
-  "host": "localhost",
-  "port": 1337,
+  "host": "ec2-54-243-197-120.compute-1.amazonaws.com",
+  "port": 5432,
   "proxy": {
     "enabled": false
   },
