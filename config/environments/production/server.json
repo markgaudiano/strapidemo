@@ -3,7 +3,10 @@
   "port": "${process.env.PORT || 1337}",
   "production": true,
   "proxy": {
-    "enabled": false
+    "enabled": true,
+    "host": "ec2-54-243-197-120.compute-1.amazonaws.com",
+    "port": 5432,
+    "ssl": true
   },
   "autoReload": {
     "enabled": false
