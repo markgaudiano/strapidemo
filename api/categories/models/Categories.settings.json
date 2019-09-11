@@ -12,9 +12,9 @@
   },
   "attributes": {
     "posts": {
-      "collection": "posts",
-      "via": "categories",
-      "dominant": true
+      "collection": "sites",
+      "dominant": true,
+      "via": "categories"
     },
     "category1": {
       "type": "string",

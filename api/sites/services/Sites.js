@@ -1,8 +1,8 @@
-/* global Posts */
+/* global Sites */
 'use strict';
 
 /**
- * Posts.js service
+ * Sites.js service
  *
  * @description: A set of functions similar to controller's actions to avoid code duplication.
  */
@@ -18,43 +18,43 @@ const { convertRestQueryParams, buildQuery } = require('strapi-utils');
 module.exports = {
 
   /**
-   * Promise to fetch all posts.
+   * Promise to fetch all sites.
    *
    * @return {Promise}
    */
 
   fetchAll: (params, populate) => {
     // Select field to populate.
-    const withRelated = populate || Posts.associations
+    const withRelated = populate || Sites.associations
       .filter(ast => ast.autoPopulate !== false)
       .map(ast => ast.alias);
 
     const filters = convertRestQueryParams(params);
 
-    return Posts.query(buildQuery({ model: Posts, filters }))
+    return Sites.query(buildQuery({ model: Sites, filters }))
       .fetchAll({ withRelated })
       .then(data => data.toJSON());
   },
 
   /**
-   * Promise to fetch a/an posts.
+   * Promise to fetch a/an sites.
    *
    * @return {Promise}
    */
 
   fetch: (params) => {
     // Select field to populate.
-    const populate = Posts.associations
+    const populate = Sites.associations
       .filter(ast => ast.autoPopulate !== false)
       .map(ast => ast.alias);
 
-    return Posts.forge(_.pick(params, 'id')).fetch({
+    return Sites.forge(_.pick(params, 'id')).fetch({
       withRelated: populate
     });
   },
 
   /**
-   * Promise to count a/an posts.
+   * Promise to count a/an sites.
    *
    * @return {Promise}
    */
@@ -63,54 +63,54 @@ module.exports = {
     // Convert `params` object to filters compatible with Bookshelf.
     const filters = convertRestQueryParams(params);
 
-    return Posts.query(buildQuery({ model: Posts, filters: _.pick(filters, 'where') })).count();
+    return Sites.query(buildQuery({ model: Sites, filters: _.pick(filters, 'where') })).count();
   },
 
   /**
-   * Promise to add a/an posts.
+   * Promise to add a/an sites.
    *
    * @return {Promise}
    */
 
   add: async (values) => {
     // Extract values related to relational data.
-    const relations = _.pick(values, Posts.associations.map(ast => ast.alias));
-    const data = _.omit(values, Posts.associations.map(ast => ast.alias));
+    const relations = _.pick(values, Sites.associations.map(ast => ast.alias));
+    const data = _.omit(values, Sites.associations.map(ast => ast.alias));
 
     // Create entry with no-relational data.
-    const entry = await Posts.forge(data).save();
+    const entry = await Sites.forge(data).save();
 
     // Create relational data and return the entry.
-    return Posts.updateRelations({ id: entry.id , values: relations });
+    return Sites.updateRelations({ id: entry.id , values: relations });
   },
 
   /**
-   * Promise to edit a/an posts.
+   * Promise to edit a/an sites.
    *
    * @return {Promise}
    */
 
   edit: async (params, values) => {
     // Extract values related to relational data.
-    const relations = _.pick(values, Posts.associations.map(ast => ast.alias));
-    const data = _.omit(values, Posts.associations.map(ast => ast.alias));
+    const relations = _.pick(values, Sites.associations.map(ast => ast.alias));
+    const data = _.omit(values, Sites.associations.map(ast => ast.alias));
 
     // Create entry with no-relational data.
-    const entry = await Posts.forge(params).save(data);
+    const entry = await Sites.forge(params).save(data);
 
     // Create relational data and return the entry.
-    return Posts.updateRelations(Object.assign(params, { values: relations }));
+    return Sites.updateRelations(Object.assign(params, { values: relations }));
   },
 
   /**
-   * Promise to remove a/an posts.
+   * Promise to remove a/an sites.
    *
    * @return {Promise}
    */
 
   remove: async (params) => {
     params.values = {};
-    Posts.associations.map(association => {
+    Sites.associations.map(association => {
       switch (association.nature) {
         case 'oneWay':
         case 'oneToOne':
@@ -127,41 +127,41 @@ module.exports = {
       }
     });
 
-    await Posts.updateRelations(params);
+    await Sites.updateRelations(params);
 
-    return Posts.forge(params).destroy();
+    return Sites.forge(params).destroy();
   },
 
   /**
-   * Promise to search a/an posts.
+   * Promise to search a/an sites.
    *
    * @return {Promise}
    */
 
   search: async (params) => {
     // Convert `params` object to filters compatible with Bookshelf.
-    const filters = strapi.utils.models.convertParams('posts', params);
+    const filters = strapi.utils.models.convertParams('sites', params);
     // Select field to populate.
-    const populate = Posts.associations
+    const populate = Sites.associations
       .filter(ast => ast.autoPopulate !== false)
       .map(ast => ast.alias);
 
-    const associations = Posts.associations.map(x => x.alias);
-    const searchText = Object.keys(Posts._attributes)
-      .filter(attribute => attribute !== Posts.primaryKey && !associations.includes(attribute))
-      .filter(attribute => ['string', 'text'].includes(Posts._attributes[attribute].type));
+    const associations = Sites.associations.map(x => x.alias);
+    const searchText = Object.keys(Sites._attributes)
+      .filter(attribute => attribute !== Sites.primaryKey && !associations.includes(attribute))
+      .filter(attribute => ['string', 'text'].includes(Sites._attributes[attribute].type));
 
-    const searchInt = Object.keys(Posts._attributes)
-      .filter(attribute => attribute !== Posts.primaryKey && !associations.includes(attribute))
-      .filter(attribute => ['integer', 'decimal', 'float'].includes(Posts._attributes[attribute].type));
+    const searchInt = Object.keys(Sites._attributes)
+      .filter(attribute => attribute !== Sites.primaryKey && !associations.includes(attribute))
+      .filter(attribute => ['integer', 'decimal', 'float'].includes(Sites._attributes[attribute].type));
 
-    const searchBool = Object.keys(Posts._attributes)
-      .filter(attribute => attribute !== Posts.primaryKey && !associations.includes(attribute))
-      .filter(attribute => ['boolean'].includes(Posts._attributes[attribute].type));
+    const searchBool = Object.keys(Sites._attributes)
+      .filter(attribute => attribute !== Sites.primaryKey && !associations.includes(attribute))
+      .filter(attribute => ['boolean'].includes(Sites._attributes[attribute].type));
 
     const query = (params._q || '').replace(/[^a-zA-Z0-9.-\s]+/g, '');
 
-    return Posts.query(qb => {
+    return Sites.query(qb => {
       if (!_.isNaN(_.toNumber(query))) {
         searchInt.forEach(attribute => {
           qb.orWhereRaw(`${attribute} = ${_.toNumber(query)}`);
@@ -175,7 +175,7 @@ module.exports = {
       }
 
       // Search in columns with text using index.
-      switch (Posts.client) {
+      switch (Sites.client) {
         case 'mysql':
           qb.orWhereRaw(`MATCH(${searchText.join(',')}) AGAINST(? IN BOOLEAN MODE)`, `*${query}*`);
           break;

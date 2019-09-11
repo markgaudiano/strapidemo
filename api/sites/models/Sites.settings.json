@@ -2,7 +2,7 @@
   "connection": "default",
   "collectionName": "posts",
   "info": {
-    "name": "posts",
+    "name": "sites",
     "description": ""
   },
   "options": {
@@ -28,6 +28,11 @@
     "categories": {
       "collection": "categories",
       "via": "posts"
+    },
+    "user": {
+      "model": "user",
+      "via": "posts",
+      "plugin": "users-permissions"
     }
   }
 }
