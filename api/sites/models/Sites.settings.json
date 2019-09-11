@@ -1,6 +1,6 @@
 {
   "connection": "default",
-  "collectionName": "posts",
+  "collectionName": "sites",
   "info": {
     "name": "sites",
     "description": ""
@@ -31,7 +31,7 @@
     },
     "user": {
       "model": "user",
-      "via": "posts",
+      "via": "sites",
       "plugin": "users-permissions"
     }
   }
