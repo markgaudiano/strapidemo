@@ -1,5 +1,5 @@
 {
-  "name": "strapidemo",
+  "name": "webriq-strapi-blog-starter2",
   "private": true,
   "version": "0.1.0",
   "description": "A Strapi application.",
@@ -15,33 +15,32 @@
     "babel-eslint": "^7.1.1",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^13.0.0",
-    "eslint-plugin-import": "^2.11.0",
-    "eslint-plugin-react": "^7.7.0"
+    "eslint-plugin-import": "^2.19.1",
+    "eslint-plugin-react": "^7.17.0"
   },
   "dependencies": {
-    "lodash": "^4.17.5",
+    "axios": "^0.18.1",
+    "lodash": "^4.17.15",
     "strapi": "3.0.0-alpha.26.2",
-    "strapi-utils": "3.0.0-alpha.26.2",
-    "strapi-hook-bookshelf": "3.0.0-alpha.26.2",
-    "strapi-hook-knex": "3.0.0-alpha.26.2",
-    "knex": "latest",
-    "sqlite3": "latest"
+    "strapi-hook-mongoose": "3.0.0-alpha.26.2",
+    "strapi-provider-upload-cloudinary": "^3.0.0-beta.17.8",
+    "strapi-utils": "3.0.0-alpha.26.2"
   },
   "author": {
-    "name": "markgaudiano",
+    "name": "dorelljames",
     "email": "",
     "url": ""
   },
   "maintainers": [
     {
-      "name": "markgaudiano",
+      "name": "dorelljames",
       "email": "",
       "url": ""
     }
   ],
   "strapi": {
     "packageManager": "npm",
-    "uuid": "a491acd7-7f54-4e1c-8376-0c42853c90e9"
+    "uuid": "1c57a3cb-3086-4344-a0a2-f2580651fe0f"
   },
   "engines": {
     "node": ">= 10.0.0",

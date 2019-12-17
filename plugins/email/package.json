@@ -21,7 +21,7 @@
   "_resolved": "https://registry.npmjs.org/strapi-plugin-email/-/strapi-plugin-email-3.0.0-alpha.26.2.tgz",
   "_shasum": "f71fd2a146ae1fa63b4bdc649ef488c2e663ff02",
   "_spec": "strapi-plugin-email@3.0.0-alpha.26.2",
-  "_where": "/Users/markgaudiano/Desktop/webriq/strapidemo",
+  "_where": "/Users/dorelljames/Projects/webriq-strapi-blog-starter2",
   "author": {
     "name": "Strapi team",
     "email": "hi@strapi.io",
