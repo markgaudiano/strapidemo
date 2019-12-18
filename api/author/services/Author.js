@@ -1,8 +1,8 @@
-/* global Sites */
+/* global Author */
 'use strict';
 
 /**
- * Sites.js service
+ * Author.js service
  *
  * @description: A set of functions similar to controller's actions to avoid code duplication.
  */
@@ -18,43 +18,43 @@ const { convertRestQueryParams, buildQuery } = require('strapi-utils');
 module.exports = {
 
   /**
-   * Promise to fetch all sites.
+   * Promise to fetch all authors.
    *
    * @return {Promise}
    */
 
   fetchAll: (params, populate) => {
     // Select field to populate.
-    const withRelated = populate || Sites.associations
+    const withRelated = populate || Author.associations
       .filter(ast => ast.autoPopulate !== false)
       .map(ast => ast.alias);
 
     const filters = convertRestQueryParams(params);
 
-    return Sites.query(buildQuery({ model: Sites, filters }))
+    return Author.query(buildQuery({ model: Author, filters }))
       .fetchAll({ withRelated })
       .then(data => data.toJSON());
   },
 
   /**
-   * Promise to fetch a/an sites.
+   * Promise to fetch a/an author.
    *
    * @return {Promise}
    */
 
   fetch: (params) => {
     // Select field to populate.
-    const populate = Sites.associations
+    const populate = Author.associations
       .filter(ast => ast.autoPopulate !== false)
       .map(ast => ast.alias);
 
-    return Sites.forge(_.pick(params, 'id')).fetch({
+    return Author.forge(_.pick(params, 'id')).fetch({
       withRelated: populate
     });
   },
 
   /**
-   * Promise to count a/an sites.
+   * Promise to count a/an author.
    *
    * @return {Promise}
    */
@@ -63,54 +63,54 @@ module.exports = {
     // Convert `params` object to filters compatible with Bookshelf.
     const filters = convertRestQueryParams(params);
 
-    return Sites.query(buildQuery({ model: Sites, filters: _.pick(filters, 'where') })).count();
+    return Author.query(buildQuery({ model: Author, filters: _.pick(filters, 'where') })).count();
   },
 
   /**
-   * Promise to add a/an sites.
+   * Promise to add a/an author.
    *
    * @return {Promise}
    */
 
   add: async (values) => {
     // Extract values related to relational data.
-    const relations = _.pick(values, Sites.associations.map(ast => ast.alias));
-    const data = _.omit(values, Sites.associations.map(ast => ast.alias));
+    const relations = _.pick(values, Author.associations.map(ast => ast.alias));
+    const data = _.omit(values, Author.associations.map(ast => ast.alias));
 
     // Create entry with no-relational data.
-    const entry = await Sites.forge(data).save();
+    const entry = await Author.forge(data).save();
 
     // Create relational data and return the entry.
-    return Sites.updateRelations({ id: entry.id , values: relations });
+    return Author.updateRelations({ id: entry.id , values: relations });
   },
 
   /**
-   * Promise to edit a/an sites.
+   * Promise to edit a/an author.
    *
    * @return {Promise}
    */
 
   edit: async (params, values) => {
     // Extract values related to relational data.
-    const relations = _.pick(values, Sites.associations.map(ast => ast.alias));
-    const data = _.omit(values, Sites.associations.map(ast => ast.alias));
+    const relations = _.pick(values, Author.associations.map(ast => ast.alias));
+    const data = _.omit(values, Author.associations.map(ast => ast.alias));
 
     // Create entry with no-relational data.
-    const entry = await Sites.forge(params).save(data);
+    const entry = await Author.forge(params).save(data);
 
     // Create relational data and return the entry.
-    return Sites.updateRelations(Object.assign(params, { values: relations }));
+    return Author.updateRelations(Object.assign(params, { values: relations }));
   },
 
   /**
-   * Promise to remove a/an sites.
+   * Promise to remove a/an author.
    *
    * @return {Promise}
    */
 
   remove: async (params) => {
     params.values = {};
-    Sites.associations.map(association => {
+    Author.associations.map(association => {
       switch (association.nature) {
         case 'oneWay':
         case 'oneToOne':
@@ -127,41 +127,41 @@ module.exports = {
       }
     });
 
-    await Sites.updateRelations(params);
+    await Author.updateRelations(params);
 
-    return Sites.forge(params).destroy();
+    return Author.forge(params).destroy();
   },
 
   /**
-   * Promise to search a/an sites.
+   * Promise to search a/an author.
    *
    * @return {Promise}
    */
 
   search: async (params) => {
     // Convert `params` object to filters compatible with Bookshelf.
-    const filters = strapi.utils.models.convertParams('sites', params);
+    const filters = strapi.utils.models.convertParams('author', params);
     // Select field to populate.
-    const populate = Sites.associations
+    const populate = Author.associations
       .filter(ast => ast.autoPopulate !== false)
       .map(ast => ast.alias);
 
-    const associations = Sites.associations.map(x => x.alias);
-    const searchText = Object.keys(Sites._attributes)
-      .filter(attribute => attribute !== Sites.primaryKey && !associations.includes(attribute))
-      .filter(attribute => ['string', 'text'].includes(Sites._attributes[attribute].type));
+    const associations = Author.associations.map(x => x.alias);
+    const searchText = Object.keys(Author._attributes)
+      .filter(attribute => attribute !== Author.primaryKey && !associations.includes(attribute))
+      .filter(attribute => ['string', 'text'].includes(Author._attributes[attribute].type));
 
-    const searchInt = Object.keys(Sites._attributes)
-      .filter(attribute => attribute !== Sites.primaryKey && !associations.includes(attribute))
-      .filter(attribute => ['integer', 'decimal', 'float'].includes(Sites._attributes[attribute].type));
+    const searchInt = Object.keys(Author._attributes)
+      .filter(attribute => attribute !== Author.primaryKey && !associations.includes(attribute))
+      .filter(attribute => ['integer', 'decimal', 'float'].includes(Author._attributes[attribute].type));
 
-    const searchBool = Object.keys(Sites._attributes)
-      .filter(attribute => attribute !== Sites.primaryKey && !associations.includes(attribute))
-      .filter(attribute => ['boolean'].includes(Sites._attributes[attribute].type));
+    const searchBool = Object.keys(Author._attributes)
+      .filter(attribute => attribute !== Author.primaryKey && !associations.includes(attribute))
+      .filter(attribute => ['boolean'].includes(Author._attributes[attribute].type));
 
     const query = (params._q || '').replace(/[^a-zA-Z0-9.-\s]+/g, '');
 
-    return Sites.query(qb => {
+    return Author.query(qb => {
       if (!_.isNaN(_.toNumber(query))) {
         searchInt.forEach(attribute => {
           qb.orWhereRaw(`${attribute} = ${_.toNumber(query)}`);
@@ -175,7 +175,7 @@ module.exports = {
       }
 
       // Search in columns with text using index.
-      switch (Sites.client) {
+      switch (Author.client) {
         case 'mysql':
           qb.orWhereRaw(`MATCH(${searchText.join(',')}) AGAINST(? IN BOOLEAN MODE)`, `*${query}*`);
           break;

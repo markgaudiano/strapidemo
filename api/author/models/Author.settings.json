@@ -1,8 +1,8 @@
 {
   "connection": "default",
-  "collectionName": "categories",
+  "collectionName": "authors",
   "info": {
-    "name": "categories",
+    "name": "author",
     "description": ""
   },
   "options": {
@@ -11,17 +11,17 @@
     "comment": ""
   },
   "attributes": {
-    "posts": {
-      "collection": "posts",
-      "via": "categories"
-    },
-    "title": {
+    "name": {
       "type": "string",
-      "required": true,
-      "unique": true
+      "unique": true,
+      "required": true
     },
     "description": {
       "type": "text"
+    },
+    "posts": {
+      "collection": "posts",
+      "via": "author"
     }
   }
 }
